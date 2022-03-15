@@ -1,0 +1,7 @@
+{
+  "name": "truelogicFootball",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
