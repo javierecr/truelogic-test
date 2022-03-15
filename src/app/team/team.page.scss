@@ -1,0 +1,8 @@
+ion-card img {
+  margin: 0 calc(50% - 50px) 32px;
+  &.expand {
+    margin: 0;
+    width: 100%;
+    padding: 10%;
+  }
+}

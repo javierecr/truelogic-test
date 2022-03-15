@@ -1,25 +1,44 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Inbox
-    </ion-title>
+    <ion-title> Competitions </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">
-        Inbox
-      </ion-title>
+      <ion-title size="large">Competitions</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-list>
+        <ion-item>
+          <ion-label> Filter by season </ion-label>
+          <ion-select
+            data-test-id="season-input"
+            (ionChange)="onSeasonSelect($event)"
+            multiple
+          >
+            <ion-select-option *ngFor="let season of seasons" [value]="season"
+              >{{season}}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </ion-list>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-list>
-    <app-message *ngFor="let message of getMessages()" [message]="message"></app-message>
+    <ion-item
+      *ngFor="let competition of competitionToShow"
+      [routerLink]="['/competitions', competition.id]"
+    >
+      <ion-avatar slot="start">
+        <img [src]="competition.emblemUrl || competition.avatarImageUrl" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{competition.name}}</h2>
+        <p>{{competition.area.name}}</p>
+      </ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>

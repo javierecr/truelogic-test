@@ -1,6 +1,6 @@
 const BASE_URL = 'https://api.football-data.org/v2';
 
-export const environment = {
+export const environmentMock: any = {
   AREAS: `${BASE_URL}/areas`,
   MATCHES: `${BASE_URL}/matches`,
   COMPETITION: `${BASE_URL}/competitions/{competitionId}`,

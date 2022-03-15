@@ -2,8 +2,17 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const BASE_URL = 'https://api.football-data.org/v2';
+
 export const environment = {
-  production: false
+  AREAS: `${BASE_URL}/areas`,
+  MATCHES: `${BASE_URL}/matches`,
+  COMPETITIONS: `${BASE_URL}/competitions`,
+  TEAMS: `${BASE_URL}/teams`,
+  TEAM: `${BASE_URL}/teams/{teamId}`,
+  COMPETITION_TEAMS: `${BASE_URL}/competitions/{competitionId}/teams`,
+  COMPETITION_MATCHES: `${BASE_URL}/competitions/{competitionId}/matches`,
+  production: false,
 };
 
 /*
