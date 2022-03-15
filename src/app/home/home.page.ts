@@ -13,7 +13,7 @@ import { InputCustomEvent } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
   competitions: Array<Competition> = [];
-  competitionToShow: Array<Competition> = [];
+  competitionsToShow: Array<Competition> = [];
   seasons: Array<number> = [];
   currentSeasonSelection: Array<number> = [];
 
@@ -39,7 +39,7 @@ export class HomePage implements OnInit {
       )
       .subscribe((competitions: Array<Competition>) => {
         this.competitions = competitions;
-        this.competitionToShow = this.competitions;
+        this.competitionsToShow = this.competitions;
 
         if (!this.seasons.length) {
           this.getSeasonsFromCompetitions();
@@ -64,10 +64,15 @@ export class HomePage implements OnInit {
   onSeasonSelect(event: Event): void {
     const selectedSeason = (event as InputCustomEvent).target.value as any;
 
-    this.competitionToShow = this.competitions.filter((competition) => {
-      return selectedSeason.includes(
-        competition.currentSeason.getStartDateFullYear
-      );
-    });
+    console.log('selectedSeason', selectedSeason);
+    if (selectedSeason.length === 0) {
+      this.competitionsToShow = this.competitions;
+    } else {
+      this.competitionsToShow = this.competitions.filter((competition) => {
+        return selectedSeason.includes(
+          competition.currentSeason.getStartDateFullYear
+        );
+      });
+    }
   }
 }
