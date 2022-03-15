@@ -1,44 +1,70 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Competitions </ion-title>
+    <ion-list slot="end" lines="none" class="ion-hide-sm-down">
+      <ng-container [ngTemplateOutlet]="seasonFilter"> </ng-container>
+    </ion-list>
+  </ion-toolbar>
+  <ion-toolbar class="ion-hide-md-up">
+    <ion-list lines="none">
+      <ng-container [ngTemplateOutlet]="seasonFilter"> </ng-container>
+    </ion-list>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Competitions</ion-title>
-    </ion-toolbar>
-    <ion-toolbar>
-      <ion-list>
-        <ion-item>
-          <ion-label> Filter by season </ion-label>
-          <ion-select
-            data-test-id="season-input"
-            (ionChange)="onSeasonSelect($event)"
-            multiple
-          >
-            <ion-select-option *ngFor="let season of seasons" [value]="season"
-              >{{season}}</ion-select-option
-            >
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-list>
+  <ion-grid class="ion-hide-sm-down">
+    <ion-row>
+      <ion-col size="4" *ngFor="let competition of competitionToShow">
+        <ion-card [routerLink]="['/competitions', competition.id]">
+          <ion-card-content>
+            <ion-list lines="none">
+              <ion-item>
+                <ng-container
+                  [ngTemplateOutlet]="competitionTemplate"
+                  [ngTemplateOutletContext]="{competition}"
+                ></ng-container>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list class="ion-hide-md-up">
     <ion-item
       *ngFor="let competition of competitionToShow"
       [routerLink]="['/competitions', competition.id]"
     >
-      <ion-avatar slot="start">
-        <img [src]="competition.emblemUrl || competition.avatarImageUrl" />
-      </ion-avatar>
-      <ion-label>
-        <h2>{{competition.name}}</h2>
-        <p>{{competition.area.name}}</p>
-      </ion-label>
+      <ng-container
+        [ngTemplateOutlet]="competitionTemplate"
+        [ngTemplateOutletContext]="{competition}"
+      ></ng-container>
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ng-template #seasonFilter>
+  <ion-item>
+    <ion-label> Filter by season </ion-label>
+    <ion-select
+      data-test-id="season-input"
+      (ionChange)="onSeasonSelect($event)"
+      multiple
+    >
+      <ion-select-option *ngFor="let season of seasons" [value]="season"
+        >{{season}}</ion-select-option
+      >
+    </ion-select>
+  </ion-item>
+</ng-template>
+
+<ng-template #competitionTemplate let-competition="competition">
+  <ion-avatar slot="start">
+    <img [src]="competition.emblemUrl || competition.avatarImageUrl" />
+  </ion-avatar>
+  <ion-label>
+    <h2>{{competition.name}}</h2>
+    <p>{{competition.area.name}}</p>
+  </ion-label>
+</ng-template>

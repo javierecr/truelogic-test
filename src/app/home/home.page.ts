@@ -62,7 +62,6 @@ export class HomePage implements OnInit {
   }
 
   onSeasonSelect(event: Event): void {
-    console.log('hiiii');
     const selectedSeason = (event as InputCustomEvent).target.value as any;
 
     this.competitionToShow = this.competitions.filter((competition) => {

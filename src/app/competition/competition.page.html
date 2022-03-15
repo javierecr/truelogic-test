@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid class="ion-hide-sm">
+  <ion-grid class="ion-hide-sm-down">
     <ion-row>
       <ion-col size-md="4" *ngFor="let team of teams">
         <ion-card [routerLink]="['teams', team.id]">
@@ -36,8 +36,7 @@
         [ngTemplateOutlet]="teamTemplate"
         [ngTemplateOutletContext]="{team}"
       >
-        ></ng-container
-      >
+      </ng-container>
     </ion-item>
   </ion-list>
 </ion-content>
