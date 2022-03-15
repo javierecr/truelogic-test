@@ -54,18 +54,10 @@
 
           <ng-container *ngIf="team.squad.length > 0; else emptyState">
             <ion-item *ngFor="let squadMember of team.squad">
-              <ion-avatar slot="start" size="large">
-                <img
-                  [src]="squadMember.getAvatarImageUrl"
-                  [alt]="squadMember.name"
-                />
-              </ion-avatar>
-              <ion-label>
-                <h2>{{squadMember.name}}</h2>
-                <h3>Postion: {{squadMember.position}}</h3>
-                <p>Nationality: {{squadMember.nationality}}</p>
-                <p>Age: {{squadMember.getAge}}</p>
-              </ion-label>
+              <ng-container
+                [ngTemplateOutlet]="squadTemplate"
+                [ngTemplateOutletContext]="{squadMember}"
+              ></ng-container>
             </ion-item>
           </ng-container>
         </ion-list>
@@ -76,18 +68,10 @@
                 <ion-card-content>
                   <ion-list>
                     <ion-item lines="none">
-                      <ion-avatar slot="start">
-                        <img
-                          [src]="squadMember.getAvatarImageUrl"
-                          [alt]="squadMember.name"
-                        />
-                      </ion-avatar>
-                      <ion-label>
-                        <h2>{{squadMember.name}}</h2>
-                        <h3>Postion: {{squadMember.position}}</h3>
-                        <p>Nationality: {{squadMember.nationality}}</p>
-                        <p>Age: {{squadMember.getAge}}</p>
-                      </ion-label>
+                      <ng-container
+                        [ngTemplateOutlet]="squadTemplate"
+                        [ngTemplateOutletContext]="{squadMember}"
+                      ></ng-container>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -104,4 +88,16 @@
   <ion-item lines="none">
     <ion-label>No data found</ion-label>
   </ion-item>
+</ng-template>
+
+<ng-template #squadTemplate let-squadMember="squadMember">
+  <ion-avatar slot="start">
+    <img [src]="squadMember.getAvatarImageUrl" [alt]="squadMember.name" />
+  </ion-avatar>
+  <ion-label>
+    <h2>{{squadMember.name}}</h2>
+    <h3>Postion: {{squadMember.position}}</h3>
+    <p>Nationality: {{squadMember.nationality}}</p>
+    <p>Age: {{squadMember.getAge}}</p>
+  </ion-label>
 </ng-template>
